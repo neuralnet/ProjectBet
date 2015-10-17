@@ -66,6 +66,7 @@ app.use(session({secret: 'secret strategic xxzzz code'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(__dirname + '/public'));
 
 
 /*
@@ -92,6 +93,15 @@ app.post('/signup', route.signUpPost);
 // logout
 // GET
 app.get('/signout', route.signOut);
+
+// bet
+// Post
+app.post('/bet', function(req, res){
+	console.log('been there');
+	
+	// For test
+	console.log(req.body.betFriend + " " + req.body.betAmount + " " + req.body.betMatch);
+});
 
 /********************************/
 
