@@ -4,7 +4,7 @@ var config = {
    host: 'localhost',  // your host
    user: 'root', // your database user
    password: '1234', // your database password
-   database: 'dbUsers',
+   database: 'dbBet',
    charset: 'UTF8_GENERAL_CI'
 };
 
