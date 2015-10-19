@@ -14,10 +14,13 @@ var LocalStrategy = require('passport-local').Strategy;
 var routes = require('./routes/index');
 var users = require('./routes/users');
 */
+//var signin = require('./routes/signin');
 
-var route = require('./route');
+
+var route = require('./routes/route');
 // model
 var Model = require('./model');
+var appboard = require('./routes/appboard');
 
 
 var app = express();
@@ -62,10 +65,16 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({secret: 'secret strategic xxzzz code'}));
+//app.use(session({secret: 'secret strategic xxzzz code'}));
+app.use(session({
+    secret: 'secret strategic',
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/appboard', appboard);
 
 
 /*
