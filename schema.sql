@@ -1,13 +1,61 @@
-drop database if exists dbUsers;
+DROP database IF EXISTS dbBet;
+CREATE database dbBet;
 
-create database if not exists dbUsers;
+USE dbBet;
 
-use dbUsers;
+DROP TABLE IF EXISTS Users;
+CREATE TABLE Users(
+   userId VARCHAR(255) NOT NULL PRIMARY KEY,
+   username VARCHAR(255) UNIQUE,
+   password VARCHAR(255),
+   balance DOUBLE
+)engine=innodb;
 
-drop table if exists tblUsers;
+DROP TABLE IF EXISTS Matchs;
+CREATE TABLE Matchs(
+	matchId VARCHAR(255) NOT NULL PRIMARY KEY,
+	matchType INT,
+	description VARCHAR(255),
+	duration DATETIME,
+	due DATETIME
+)engine=innodb;
 
-create table if not exists tblUsers(
-   userId integer primary key auto_increment,
-   username varchar(100) unique,
-   password varchar(100)
+DROP TABLE IF EXISTS Bets;
+CREATE TABLE Bets(
+	betId VARCHAR(255) NOT NULL PRIMARY KEY,
+	matchId VARCHAR(255),
+	amount DOUBLE,
+	totalPlayers INT,
+	dueTime DATETIME, 
+	/* 
+		Due for bet not for the actual match, for exp. beting end 5mins before match starts, 
+		may group within a config.xml later.
+	*/
+	FOREIGN KEY (matchId)
+		REFERENCES Matchs(matchId)
+		ON UPDATE CASCADE
+)engine=innodb;
+
+DROP TABLE IF EXISTS PlayerBetList;
+CREATE TABLE PlayerBetList(
+	userId VARCHAR(255) NOT NULL,
+	betId VARCHAR(255) NOT NULL,
+	FOREIGN KEY (userId)
+		REFERENCES Users(userId)
+		ON UPDATE CASCADE,
+	FOREIGN KEY (betId)
+		REFERENCES Bets(betId)
+		ON UPDATE CASCADE
+)engine=innodb;
+
+DROP TABLE IF EXISTS UserFriendList;
+CREATE TABLE UserFriendList(
+	userId VARCHAR(255) NOT NULL,
+	friendId VARCHAR(255) NOT NULL,
+	FOREIGN KEY (userId)
+		REFERENCES Users(userId)
+		ON UPDATE CASCADE,
+	FOREIGN KEY (friendId)
+		REFERENCES Users(userId)
+		ON UPDATE CASCADE
 )engine=innodb;

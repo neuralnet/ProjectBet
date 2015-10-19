@@ -102,6 +102,15 @@ app.post('/signup', route.signUpPost);
 // GET
 app.get('/signout', route.signOut);
 
+// bet
+// Post
+app.post('/bet', function(req, res){
+	console.log('been there');
+	
+	// For test
+	console.log(req.body.betFriend + " " + req.body.betAmount + " " + req.body.betMatch);
+});
+
 /********************************/
 
 /********************************/
