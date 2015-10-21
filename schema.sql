@@ -26,6 +26,7 @@ CREATE TABLE Bets(
 	matchId VARCHAR(255),
 	amount DOUBLE,
 	totalPlayers INT,
+	isActive INT,
 	dueTime DATETIME, 
 	/* 
 		Due for bet not for the actual match, for exp. beting end 5mins before match starts, 
@@ -57,5 +58,22 @@ CREATE TABLE UserFriendList(
 		ON UPDATE CASCADE,
 	FOREIGN KEY (friendId)
 		REFERENCES Users(userId)
+		ON UPDATE CASCADE
+)engine=innodb;
+
+DROP TABLE IF EXISTS RequestList;
+CREATE TABLE RequestList(
+	userId VARCHAR(255) NOT NULL,
+	friendId VARCHAR(255) NOT NULL,
+	betId VARCHAR(255) NOT NULL,
+	status INT,	/* 0: Pending, 1: Accepted, 2: Refused */
+	FOREIGN KEY (userId)
+		REFERENCES Users(userId)
+		ON UPDATE CASCADE,
+	FOREIGN KEY (friendId)
+		REFERENCES Users(userId)
+		ON UPDATE CASCADE
+	FOREIGN KEY (betId)
+		REFERENCES Bets(userId)
 		ON UPDATE CASCADE
 )engine=innodb;
