@@ -23,6 +23,7 @@ CREATE TABLE Matchs(
 DROP TABLE IF EXISTS Bets;
 CREATE TABLE Bets(
 	betId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	creatorId INT,
 	matchId INT,
 	amount DOUBLE,
 	totalPlayers INT,
@@ -34,11 +35,14 @@ CREATE TABLE Bets(
 	*/
 	FOREIGN KEY (matchId)
 		REFERENCES Matchs(matchId)
+		ON UPDATE CASCADE,
+	FOREIGN KEY (creatorId)
+		REFERENCES Users(userId)
 		ON UPDATE CASCADE
 )engine=innodb;
 
-DROP TABLE IF EXISTS PlayerBetList;
-CREATE TABLE PlayerBetList(
+DROP TABLE IF EXISTS UserBetList;
+CREATE TABLE UserBetList(
 	userId INT NOT NULL,
 	betId INT NOT NULL,
 	FOREIGN KEY (userId)
@@ -78,3 +82,8 @@ CREATE TABLE Requests(
 		REFERENCES Bets(betId)
 		ON UPDATE CASCADE
 )engine=innodb;
+
+/* POPULATE */
+INSERT INTO Matchs VALUES(1, 1, 'Vietname vs. Thailand', Null, Null);
+INSERT INTO Users VALUE(1, 'gothdn', '$2a$10$zPRmgO8dXtN5XVgaLAgk4uIF2K0NVyf5DkIrc1qRxkwRhCU.iviVO', 0);
+INSERT INTO Users VALUE(20, 'testuser', '$2a$10$ktzR0fT33BCswO4ggVj4yu3eCsNwgTCCu4GKzO05yZTXxhmWeCLR.', 0);

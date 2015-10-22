@@ -7,7 +7,13 @@ var User = DB.Model.extend({
 
 var Bet = DB.Model.extend({
 	tableName: 'Bets',
-	idAttribute: 'betId'
+	idAttribute: 'betId',
+	match: function() {
+		return this.belongTo(Match);
+	},
+	creator: function() {
+		return this.belongTo(User);
+	}
 });
 
 var Match = DB.Model.extend({
@@ -17,15 +23,36 @@ var Match = DB.Model.extend({
 
 var Request = DB.Model.extend({
 	tableName: 'Requests',
-	idAttribute: 'requestId'
+	idAttribute: 'requestId',
+	user: function() {
+		return this.belongTo(User);
+	},
+	friend: function() {
+		return this.belongTo(User);
+	},
+	bet: function() {
+		return this.belongTo(Bet);
+	}
 });
 
 var UserFriend = DB.Model.extend({
 	tableName: 'UserFriendList',
+	user: function() {
+		return this.belongTo(User);
+	},
+	friend: function() {
+		return this.belongTo(User);
+	}
 });
 
-var PlayerBet = DB.Model.extend({
-	tableName: 'PlayerBetList',
+var UserBet = DB.Model.extend({
+	tableName: 'UserBetList',
+	user: function() {
+		return this.belongTo(User);
+	},
+	bet: function() {
+		return this.belongTo(Bet);
+	}
 });
 
 module.exports = {
@@ -34,5 +61,5 @@ module.exports = {
    Match: Match,
    Request: Request,
    UserFriend: UserFriend,
-   PlayerBet: PlayerBet
+   UserBet: UserBet
 };

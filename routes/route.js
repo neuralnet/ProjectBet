@@ -5,6 +5,8 @@ var bcrypt = require('bcrypt-nodejs');
 // custom library
 // model
 var Model = require('../model');
+var betFunction = require('../routes/betFunction');
+
 
 // index
 var index = function(req, res, next) {
@@ -17,7 +19,14 @@ var index = function(req, res, next) {
       if(user !== undefined) {
          user = user.toJSON();
       }
-      res.render('appboard/main', {title: 'Home', user: user});
+      
+      new Model.User().query({where: {username: req.user.get("username")}}).fetch().then(function(user) {
+		 Model.Request.where('friendId', user.get("userId")).count('userId').then(function(request) {
+			Model.Bet.where('creatorId', user.get("userId")).count('betId').then(function(bets) {
+				res.render('appboard/main', {title: 'Home',user: user, requests: request, bets: bets});
+			});
+		 });
+	  });
    }
 };
 
@@ -97,6 +106,12 @@ var signOut = function(req, res, next) {
    }
 };
 
+// createBet
+var createBet = function(req, res, next) {
+	betFunction.createBet(req, res, next);
+	res.redirect('/');
+}
+
 // 404 not found
 var notFound404 = function(req, res, next) {
    res.status(404);
@@ -122,6 +137,9 @@ module.exports.signUpPost = signUpPost;
 
 // sign out
 module.exports.signOut = signOut;
+
+// create bet
+module.exports.createBet = createBet;
 
 // 404 not found
 module.exports.notFound404 = notFound404;
