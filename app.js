@@ -177,16 +177,7 @@ app.get('/signout', route.signOut);
 
 // bet
 // Post
-<<<<<<< HEAD
-app.post('/bet', function(req, res){
-	console.log('been there');
-
-	// For test
-	console.log(req.body.betFriend + " " + req.body.betAmount + " " + req.body.betMatch);
-});
-=======
 app.post('/bet', route.createBet);
->>>>>>> peanut
 
 /********************************/
 
