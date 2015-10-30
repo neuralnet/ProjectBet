@@ -70,7 +70,7 @@ CREATE TABLE Requests(
 	requestId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	userId INT NOT NULL,
 	friendId INT NOT NULL,
-	betId INT NOT NULL,
+	betId INT NOT NULL,d
 	status INT,	/* 0: Pending, 1: Accepted, 2: Refused */
 	FOREIGN KEY (userId)
 		REFERENCES Users(userId)
