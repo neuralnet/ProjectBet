@@ -26,7 +26,7 @@ var appboard = require('./routes/appboard');
 var configAuth = require('./auth');
 
 
-var app = express();
+app = express();
 
 passport.use(new LocalStrategy(function(username, password, done) {
    new Model.User({username: username}).fetch().then(function(data) {
@@ -136,12 +136,16 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/appboard', appboard);
 
+/*
+ *	variable for messages
+ */
+app.locals.requests = 0;
+app.locals.bets = 0;
 
 /*
 app.use('/', routes);
 app.use('/users', users);
 */
-
 
 // GET
 app.get('/', route.index);
@@ -173,12 +177,16 @@ app.get('/signout', route.signOut);
 
 // bet
 // Post
+<<<<<<< HEAD
 app.post('/bet', function(req, res){
 	console.log('been there');
 
 	// For test
 	console.log(req.body.betFriend + " " + req.body.betAmount + " " + req.body.betMatch);
 });
+=======
+app.post('/bet', route.createBet);
+>>>>>>> peanut
 
 /********************************/
 

@@ -15,9 +15,10 @@
       </p>
 
      <h3> This is your appboard! </h3>
-          <!-- Trigger the modal with a button -->
+     <p> <%=requests%> pending requests</p>
+     <p> <%=bets%> active bets</p>
+    <!-- Trigger the modal with a button -->
 	<p><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Click here to bet</button></p>
-
 	<!-- Modal -->
 	<form method="post" action="/bet">
 		<div id="myModal" class="modal fade" role="dialog">
@@ -37,7 +38,7 @@
 								<td>
 									<input type="text" name="betFriend" id="friend">
 								</td>
-								<td>@user1 for test</td>
+								<td>testuser for test</td>
 							</tr>
 							<tr>
 								<td>Amount:</td>
