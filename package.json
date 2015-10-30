@@ -17,11 +17,7 @@
     "bcrypt-nodejs": "*",
     "passport": "*",
     "passport-local": "*",
-<<<<<<< HEAD
     "passport-facebook": "*",
-    "bookshelf": "0.5",
-    "mysql": "*"
-=======
     "bookshelf": "0.8.2",
     "mysql": "*",
     "knex": "*",
@@ -29,6 +25,5 @@
     "mysql": "*",
     "mariasql": "*",
     "sqlite3": "*"
->>>>>>> peanut
   }
 }
