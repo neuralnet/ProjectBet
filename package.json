@@ -17,6 +17,7 @@
     "bcrypt-nodejs": "*",
     "passport": "*",
     "passport-local": "*",
+    "passport-facebook": "*",
     "bookshelf": "0.5",
     "mysql": "*"
   }
