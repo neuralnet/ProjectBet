@@ -177,7 +177,7 @@ app.get('/signout', route.signOut);
 
 // bet
 // Post
-app.post('/bet', route.createBet);
+app.post('/makeBet', route.createBet);
 
 /********************************/
 
