@@ -13,20 +13,12 @@ var index = function(req, res, next) {
    if(!req.isAuthenticated()) {
       res.redirect('/signin');
    } else {
-
       var user = req.user;
 
       if(user !== undefined) {
          user = user.toJSON();
       }
-      
-      new Model.User().query({where: {username: req.user.get("username")}}).fetch().then(function(user) {
-		 Model.Request.where('friendId', user.get("userId")).count('userId').then(function(request) {
-			Model.Bet.where('creatorId', user.get("userId")).count('betId').then(function(bets) {
-				res.render('appboard/main', {title: 'Home',user: user, requests: request, bets: bets});
-			});
-		 });
-	  });
+      res.render('appboard/main', {title: 'Home', user: user});
    }
 };
 
@@ -112,6 +104,10 @@ var createBet = function(req, res, next) {
 	res.redirect('/');
 }
 
+var userStat = function(req, res, next) {
+	betFunction.userStat(req, res, next);
+}
+
 // 404 not found
 var notFound404 = function(req, res, next) {
    res.status(404);
@@ -143,3 +139,5 @@ module.exports.createBet = createBet;
 
 // 404 not found
 module.exports.notFound404 = notFound404;
+
+module.exports.userStat = userStat;

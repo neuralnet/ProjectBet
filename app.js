@@ -139,9 +139,6 @@ app.use('/appboard', appboard);
 /*
  *	variable for messages
  */
-app.locals.requests = 0;
-app.locals.bets = 0;
-
 /*
 app.use('/', routes);
 app.use('/users', users);
@@ -177,7 +174,9 @@ app.get('/signout', route.signOut);
 
 // bet
 // Post
-app.post('/bet', route.createBet);
+app.post('/submitBet', route.createBet);
+
+app.get('/userStat', route.userStat);
 
 /********************************/
 
